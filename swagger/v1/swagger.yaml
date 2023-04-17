@@ -8,19 +8,19 @@ paths:
     get:
       summary: list roles
       tags:
-      - Roles
+        - Roles
       responses:
-        '200':
+        "200":
           description: successful
     post:
       summary: create role
       tags:
-      - Roles
+        - Roles
       parameters: []
       responses:
-        '201':
+        "201":
           description: Created a role
-        '422':
+        "422":
           description: invalid request
       requestBody:
         content:
@@ -35,31 +35,31 @@ paths:
                 default_page_id:
                   type: integer
               required:
-              - name
+                - name
   "/api/v1/roles/{id}":
     parameters:
-    - name: id
-      in: path
-      description: id of the role
-      required: true
-      schema:
-        type: integer
+      - name: id
+        in: path
+        description: id of the role
+        required: true
+        schema:
+          type: integer
     get:
       summary: show role
       tags:
-      - Roles
+        - Roles
       responses:
-        '200':
+        "200":
           description: successful
     patch:
       summary: update role
       tags:
-      - Roles
+        - Roles
       parameters: []
       responses:
-        '200':
+        "200":
           description: successful
-        '422':
+        "422":
           description: invalid request
       requestBody:
         content:
@@ -74,16 +74,16 @@ paths:
                 default_page_id:
                   type: integer
               required:
-              - name
+                - name
     put:
       summary: update role
       tags:
-      - Roles
+        - Roles
       parameters: []
       responses:
-        '200':
+        "200":
           description: successful
-        '422':
+        "422":
           description: invalid request
       requestBody:
         content:
@@ -98,16 +98,87 @@ paths:
                 default_page_id:
                   type: integer
               required:
-              - name
+                - name
     delete:
       summary: delete role
       tags:
-      - Roles
+        - Roles
       responses:
-        '200':
+        "200":
           description: successful
+
+  /invitations:
+    get:
+      tags:
+        - Invitations
+      summary: Retrieve a list of invitations
+      responses:
+        "200":
+          description: OK
+    post:
+      tags:
+        - Invitations
+      summary: Create a new invitation
+      parameters:
+        - name: invitation
+          in: body
+          schema:
+            $ref: "#/definitions/InvitationInput"
+      responses:
+        "200":
+          description: OK
+
+  /invitations/{id}:
+    get:
+      tags:
+        - Invitations
+      summary: Retrieve a specific invitation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: OK
+    patch:
+      tags:
+        - Invitations
+      summary: Update an existing invitation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+        - name: invitation
+          in: body
+          schema:
+            $ref: "#/definitions/InvitationInput"
+      responses:
+        "200":
+          description: OK
+    delete:
+      tags:
+        - Invitations
+      summary: Delete an invitation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: OK
+
+definitions:
+  InvitationInput:
+    type: object
+    properties:
+      email:
+        type: string
+
 servers:
-- url: http://{defaultHost}
-  variables:
-    defaultHost:
-      default: 127.0.0.1:3000
+  - url: http://{defaultHost}
+    variables:
+      defaultHost:
+        default: 127.0.0.1:3000

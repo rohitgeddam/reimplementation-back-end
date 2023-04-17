@@ -15,4 +15,11 @@ FactoryBot.define do
   factory :assignment do
     name { (Assignment.last ? ('assignment' + (Assignment.last.id + 1).to_s) : 'final2').to_s }
   end
+
+  factory :invitation do
+    association :assignment
+    association :to_user, factory: :user
+    association :from_user, factory: :user
+    reply_status { "W" }
+  end
 end
